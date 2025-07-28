@@ -57,14 +57,18 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				shiba: {
-					blue: 'hsl(var(--shiba-blue))',
-					card: 'hsl(var(--shiba-card))',
-					cyan: 'hsl(var(--shiba-cyan))',
-					pink: 'hsl(var(--shiba-pink))',
-					green: 'hsl(var(--shiba-green))',
-					text: 'hsl(var(--shiba-text))',
-					muted: 'hsl(var(--shiba-muted))',
+				orangery: {
+					50: 'hsl(var(--orangery-50))',
+					100: 'hsl(var(--orangery-100))',
+					200: 'hsl(var(--orangery-200))',
+					300: 'hsl(var(--orangery-300))',
+					400: 'hsl(var(--orangery-400))',
+					500: 'hsl(var(--orangery-500))',
+					600: 'hsl(var(--orangery-600))',
+					700: 'hsl(var(--orangery-700))',
+					800: 'hsl(var(--orangery-800))',
+					900: 'hsl(var(--orangery-900))',
+					950: 'hsl(var(--orangery-950))',
 				}
 			},
 			borderRadius: {

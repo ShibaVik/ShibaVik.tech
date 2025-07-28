@@ -4,57 +4,61 @@
 
 @layer base {
   :root {
-    --background: 231 25% 7%;
-    --foreground: 210 40% 98%;
-    --card: 231 25% 10%;
-    --card-foreground: 210 40% 98%;
-    --popover: 231 25% 10%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 195 100% 50%;
-    --primary-foreground: 231 25% 7%;
-    --secondary: 217 32% 15%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217 32% 15%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 332 84% 60%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 84% 60%;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217 32% 15%;
-    --input: 217 32% 15%;
-    --ring: 195 100% 50%;
-    --radius: 0.75rem;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
     
-    /* ShibaVik specific colors */
-    --shiba-blue: 231 25% 7%;
-    --shiba-card: 231 25% 10%;
-    --shiba-cyan: 195 100% 50%;
-    --shiba-pink: 332 84% 60%;
-    --shiba-green: 142 76% 36%;
-    --shiba-text: 210 40% 98%;
-    --shiba-muted: 215 20% 65%;
+    /* Orangery specific colors */
+    --orangery-50: 39 100% 97%;
+    --orangery-100: 39 100% 91%;
+    --orangery-200: 39 100% 82%;
+    --orangery-300: 39 100% 71%;
+    --orangery-400: 39 100% 58%;
+    --orangery-500: 39 100% 50%;
+    --orangery-600: 33 100% 45%;
+    --orangery-700: 27 100% 37%;
+    --orangery-800: 22 89% 30%;
+    --orangery-900: 20 79% 25%;
+    --orangery-950: 16 89% 13%;
   }
 
   .dark {
-    --background: 231 25% 7%;
+    --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
-    --card: 231 25% 10%;
+    --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
-    --popover: 231 25% 10%;
+    --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 195 100% 50%;
-    --primary-foreground: 231 25% 7%;
-    --secondary: 217 32% 15%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 217 32% 15%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 332 84% 60%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
-    --destructive: 0 84% 60%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217 32% 15%;
-    --input: 217 32% 15%;
-    --ring: 195 100% 50%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
   }
 }
 
@@ -64,13 +68,12 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-shiba-blue via-slate-900 to-slate-800 text-shiba-text min-h-screen antialiased;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-sans tracking-tight;
+    @apply font-serif tracking-tight;
   }
 }
 
