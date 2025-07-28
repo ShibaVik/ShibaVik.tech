@@ -57,27 +57,14 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
-				},
-				orangery: {
-					50: '#f9fafb',
-					100: '#f3f4f6',
-					200: '#e5e7eb',
-					300: '#d1d5db',
-					400: '#9ca3af',
-					500: '#6b7280',
-					600: '#4b5563',
-					700: '#374151',
-					800: '#1f2937',
-					900: '#111827',
+				shiba: {
+					blue: 'hsl(var(--shiba-blue))',
+					card: 'hsl(var(--shiba-card))',
+					cyan: 'hsl(var(--shiba-cyan))',
+					pink: 'hsl(var(--shiba-pink))',
+					green: 'hsl(var(--shiba-green))',
+					text: 'hsl(var(--shiba-text))',
+					muted: 'hsl(var(--shiba-muted))',
 				}
 			},
 			borderRadius: {
