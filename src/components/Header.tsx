@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           to="/" 
           className="text-xl font-serif font-medium tracking-tight transition-opacity hover:opacity-80"
         >
-          Orangery Ventures
+          ShibaVik.io
         </NavLink>
         
         <div className="hidden md:flex items-center space-x-8">

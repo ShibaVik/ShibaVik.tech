@@ -10,20 +10,20 @@ interface FoundersInSearchProps {
 const FoundersInSearch: React.FC<FoundersInSearchProps> = ({ className }) => {
   const founderTypes = [
     {
-      title: "Illegible Founders",
-      description: "Those who reject easy categorization, whether due to unconventional backgrounds, markets, or business models. We specialize in funding what others overlook."
+      title: "Applied Mathematics Specialists",
+      description: "Mathematicians who apply advanced algorithms, statistical models, and quantitative analysis to solve real-world blockchain challenges."
     },
     {
-      title: "First-Time Founders with Significant Non-Tech Experience",
-      description: "Corporate leaders, operators, and business owners making the leap into startups, bringing unique domain expertise and execution ability."
+      title: "Blockchain Architects", 
+      description: "Technical experts who design and implement decentralized systems, smart contracts, and distributed ledger technologies."
     },
     {
-      title: "Academic Innovators & Researchers",
-      description: "Scientists and academics with deep technical knowledge and IP-driven innovations seeking to commercialize their research through entrepreneurship."
+      title: "DeFi Innovators",
+      description: "Pioneers creating decentralized financial products, automated market makers, and yield optimization protocols."
     },
     {
-      title: "Gender-Diverse Teams",
-      description: "Backing women leaders and mixed-gender founding teams who bring fresh perspectives and collaborative approaches to building transformative companies."
+      title: "Cryptographic Researchers",
+      description: "Security experts developing new consensus mechanisms, zero-knowledge proofs, and privacy-preserving technologies."
     }
   ];
 
@@ -32,7 +32,7 @@ const FoundersInSearch: React.FC<FoundersInSearchProps> = ({ className }) => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto mb-16">
           <FadeIn>
-            <h2 className="text-3xl md:text-4xl font-serif mb-8 text-center">Founders we back</h2>
+            <h2 className="text-3xl md:text-4xl font-serif mb-8 text-center">Applied Mathematics & Blockchain</h2>
           </FadeIn>
         </div>
         

@@ -49,10 +49,10 @@ const Index = () => {
       <CryptoShowcase />
       <TradingSimulator />
       <Gap />
-      <FoundersInSearch />
-      <InvestmentApproach />
       <About />
       <Community />
+      <FoundersInSearch />
+      <InvestmentApproach />
       <Footer />
     </main>
   );

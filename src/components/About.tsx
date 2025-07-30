@@ -51,7 +51,7 @@ const About: React.FC<AboutProps> = ({ className }) => {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-orangery-600 hover:text-orangery-700 transition-colors"
                 >
-                  <span className="text-lg">OS</span>
+                  <img src="/src/assets/opensea-logo.png" alt="OpenSea" className="w-4 h-4" />
                   <span className="text-sm">OpenSea</span>
                 </a>
                 <a
@@ -60,7 +60,7 @@ const About: React.FC<AboutProps> = ({ className }) => {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-orangery-600 hover:text-orangery-700 transition-colors"
                 >
-                  <span className="text-lg">GH</span>
+                  <img src="/src/assets/github-logo.png" alt="GitHub" className="w-4 h-4" />
                   <span className="text-sm">GitHub</span>
                 </a>
               </div>

@@ -11,12 +11,12 @@ interface InvestmentApproachProps {
 const InvestmentApproach: React.FC<InvestmentApproachProps> = ({ className }) => {
   const investmentTiers = [
     {
-      title: "Pre-Seed Accelerator Fund",
-      description: "€30K–€150K tickets, with teams participating in our 16-week acceleration program focused on validation and early traction."
+      title: "Mathematical Research",
+      description: "Advanced mathematical models for price prediction, risk assessment, and automated trading strategies using machine learning and statistical analysis."
     },
     {
-      title: "Seed Fund",
-      description: "€200K–€400K investments in 15+ startups to support scaling, market expansion, and team growth, with follow-on capital available."
+      title: "Blockchain Technology",
+      description: "Development of secure, scalable blockchain protocols and smart contract architectures for DeFi applications with optimized consensus mechanisms."
     }
   ];
 
@@ -25,11 +25,11 @@ const InvestmentApproach: React.FC<InvestmentApproachProps> = ({ className }) =>
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto mb-16">
           <FadeIn>
-            <h2 className="text-3xl md:text-4xl font-serif mb-8 text-center">Investment Approach</h2>
+            <h2 className="text-3xl md:text-4xl font-serif mb-8 text-center">Technical Excellence</h2>
           </FadeIn>
           <FadeIn delay={100}>
             <p className="text-lg text-center text-muted-foreground mb-12">
-              We invest sector-agnostically in pre-seed and seed stage in companies run by overlooked founders - such as gender-diverse teams, academic researchers, business owners, and corporate professionals transitioning into tech entrepreneurship. Our thesis is that tremendous untapped talent in these categories can yield high-impact startups if given early support. We believe in domain expertise and unfair advantages these founders bring.
+              Our platform combines rigorous mathematical foundations with cutting-edge blockchain technology to deliver superior trading simulation and cryptocurrency analysis capabilities.
             </p>
           </FadeIn>
         </div>
@@ -43,12 +43,12 @@ const InvestmentApproach: React.FC<InvestmentApproachProps> = ({ className }) =>
                   <p className="text-muted-foreground mb-4">{tier.description}</p>
                   {index === 0 && (
                     <div className="mt-4 pt-4 border-t border-gray-100">
-                      <p className="text-sm font-medium">16-week acceleration program</p>
+                      <p className="text-sm font-medium">Quantitative analysis & algorithmic trading</p>
                     </div>
                   )}
                   {index === 1 && (
                     <div className="mt-4 pt-4 border-t border-gray-100">
-                      <p className="text-sm font-medium">Follow-on capital available</p>
+                      <p className="text-sm font-medium">Cryptographic security & distributed systems</p>
                     </div>
                   )}
                 </CardContent>

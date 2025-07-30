@@ -62,7 +62,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 className="w-12 h-12 rounded-lg bg-orangery-100 hover:bg-orangery-200 flex items-center justify-center transition-colors group"
                 title="OpenSea"
               >
-                <span className="text-orangery-600 text-lg font-medium group-hover:scale-110 transition-transform">OS</span>
+                <img src="/src/assets/opensea-logo.png" alt="OpenSea" className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </a>
               <a
                 href="https://github.com/ShibaVik"
@@ -71,7 +71,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 className="w-12 h-12 rounded-lg bg-orangery-100 hover:bg-orangery-200 flex items-center justify-center transition-colors group"
                 title="GitHub"
               >
-                <span className="text-orangery-600 text-lg font-medium group-hover:scale-110 transition-transform">GH</span>
+                <img src="/src/assets/github-logo.png" alt="GitHub" className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </a>
             </div>
           </div>
