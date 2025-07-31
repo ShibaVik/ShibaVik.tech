@@ -107,16 +107,52 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
               setIsMobileMenuOpen(false);
             }}
           >
-            Thesis
+            Simulator
           </button>
           <button 
             className="text-left hover:text-orangery-500 transition-colors"
             onClick={() => {
-              scrollToSection('investment');
+              scrollToSection('portfolio');
               setIsMobileMenuOpen(false);
             }}
           >
-            Investment
+            Portfolio
+          </button>
+          <button 
+            className="text-left hover:text-orangery-500 transition-colors"
+            onClick={() => {
+              scrollToSection('history');
+              setIsMobileMenuOpen(false);
+            }}
+          >
+            History
+          </button>
+          <button 
+            className="text-left hover:text-orangery-500 transition-colors"
+            onClick={() => {
+              scrollToSection('nft');
+              setIsMobileMenuOpen(false);
+            }}
+          >
+            NFT
+          </button>
+          <button 
+            className="text-left hover:text-orangery-500 transition-colors"
+            onClick={() => {
+              scrollToSection('settings');
+              setIsMobileMenuOpen(false);
+            }}
+          >
+            Settings
+          </button>
+          <button 
+            className="text-left hover:text-orangery-500 transition-colors"
+            onClick={() => {
+              scrollToSection('signup');
+              setIsMobileMenuOpen(false);
+            }}
+          >
+            Registration
           </button>
         </nav>
       </div>
@@ -140,13 +176,37 @@ const NavLinks: React.FC<NavLinksProps> = ({ scrollToSection }) => (
       className="text-sm font-medium hover:text-orangery-500 transition-colors"
       onClick={() => scrollToSection('thesis')}
     >
-      Thesis
+      Simulator
     </button>
     <button 
       className="text-sm font-medium hover:text-orangery-500 transition-colors"
-      onClick={() => scrollToSection('investment')}
+      onClick={() => scrollToSection('portfolio')}
     >
-      Investment
+      Portfolio
+    </button>
+    <button 
+      className="text-sm font-medium hover:text-orangery-500 transition-colors"
+      onClick={() => scrollToSection('history')}
+    >
+      History
+    </button>
+    <button 
+      className="text-sm font-medium hover:text-orangery-500 transition-colors"
+      onClick={() => scrollToSection('nft')}
+    >
+      NFT
+    </button>
+    <button 
+      className="text-sm font-medium hover:text-orangery-500 transition-colors"
+      onClick={() => scrollToSection('settings')}
+    >
+      Settings
+    </button>
+    <button 
+      className="text-sm font-medium hover:text-orangery-500 transition-colors"
+      onClick={() => scrollToSection('signup')}
+    >
+      Registration
     </button>
   </>
 );
