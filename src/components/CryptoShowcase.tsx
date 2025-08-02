@@ -65,7 +65,7 @@ const CryptoShowcase: React.FC<CryptoShowcaseProps> = ({ className }) => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {cryptos.map((crypto, index) => (
             <FadeIn key={crypto.id} delay={150 + index * 50}>
-              <Card className="border-0 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+              <Card className="border-0 shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group transform hover:scale-105">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 bg-orangery-100 rounded-full flex items-center justify-center group-hover:bg-orangery-200 transition-colors">

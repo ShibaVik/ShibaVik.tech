@@ -35,6 +35,21 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
               <p className="text-lg md:text-xl text-white/90 mb-8">
                 Follow the news on 𝕏 ShibaVik
               </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <button 
+                  onClick={() => document.getElementById('thesis')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-6 py-3 bg-orangery-500 hover:bg-orangery-600 text-white rounded-lg font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                >
+                  🚀 Essayer le simulateur
+                </button>
+                <button 
+                  onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg font-medium transition-all duration-300 border border-white/30 backdrop-blur-sm"
+                >
+                  📊 Voir Portfolio
+                </button>
+              </div>
             </FadeIn>
           </div>
           

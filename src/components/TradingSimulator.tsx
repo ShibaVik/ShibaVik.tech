@@ -19,9 +19,9 @@ const TradingSimulator: React.FC<TradingSimulatorProps> = ({ className }) => {
   };
 
   const socialLinks = [
-    { name: 'Twitter', symbol: '𝕏', href: '#' },
-    { name: 'LinkedIn', symbol: 'in', href: '#' },
-    { name: 'GitHub', symbol: 'GH', href: '#' },
+    { name: 'Twitter', symbol: '𝕏', href: 'https://twitter.com/ShibaVik', color: 'bg-blue-100 hover:bg-blue-200 text-blue-600' },
+    { name: 'GitHub', symbol: 'GH', href: 'https://github.com/ShibaVik', color: 'bg-gray-100 hover:bg-gray-200 text-gray-700' },
+    { name: 'OpenSea', symbol: '🌊', href: 'https://opensea.io/ShibaVik', color: 'bg-cyan-100 hover:bg-cyan-200 text-cyan-600' },
   ];
 
   return (
@@ -48,10 +48,15 @@ const TradingSimulator: React.FC<TradingSimulatorProps> = ({ className }) => {
                     <a
                       key={link.name}
                       href={link.href}
-                      className="w-8 h-8 rounded-lg bg-orangery-100 hover:bg-orangery-200 flex items-center justify-center transition-colors"
+                      className={cn(
+                        "w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-md",
+                        link.color
+                      )}
                       title={link.name}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      <span className="text-orangery-600 text-sm font-medium">{link.symbol}</span>
+                      <span className="text-sm font-medium">{link.symbol}</span>
                     </a>
                   ))}
                 </div>
@@ -82,10 +87,22 @@ const TradingSimulator: React.FC<TradingSimulatorProps> = ({ className }) => {
                 </Button>
               </form>
 
-              <div className="text-center py-8 border-2 border-dashed border-orangery-200 rounded-lg">
-                <TrendingUp className="w-12 h-12 text-orangery-400 mx-auto mb-4" />
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                {['BTC', 'ETH', 'SOL', 'BNB'].map((crypto) => (
+                  <button
+                    key={crypto}
+                    onClick={() => setSearchQuery(crypto)}
+                    className="p-3 border-2 border-orangery-200 rounded-lg hover:border-orangery-400 hover:bg-orangery-50 transition-all duration-300 transform hover:scale-105"
+                  >
+                    <div className="text-sm font-medium text-orangery-600">{crypto}</div>
+                  </button>
+                ))}
+              </div>
+              
+              <div className="text-center py-8 border-2 border-dashed border-orangery-200 rounded-lg hover:border-orangery-300 transition-colors">
+                <TrendingUp className="w-12 h-12 text-orangery-400 mx-auto mb-4 animate-pulse" />
                 <p className="text-muted-foreground">
-                  Search for a cryptocurrency to start practicing trades
+                  Sélectionnez une cryptomonnaie pour commencer à trader
                 </p>
               </div>
             </div>
