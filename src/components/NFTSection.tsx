@@ -10,25 +10,25 @@ interface NFTSectionProps {
 const NFTSection: React.FC<NFTSectionProps> = ({ className }) => {
   const nftCollections = [
     {
-      name: "ShibaVik Genesis",
-      description: "Premier collection NFT de ShibaVik avec des traits uniques",
-      image: "/lovable-uploads/af28398b-9e23-4e2b-9de1-bda457e09fd8.png",
-      price: "0.5 ETH",
+      name: "ShibaVik Blue Lightning",
+      description: "Collection Summer Era avec le légendaire ShibaVik aux lunettes éclair bleues",
+      image: "/lovable-uploads/9c990978-0480-4029-845d-5aea6ca06e53.png",
+      price: "0.08 ETH",
+      supply: "2,500"
+    },
+    {
+      name: "ShibaVik Pink Thunder", 
+      description: "Edition spéciale aux couleurs violettes et roses de la Summer Era",
+      image: "/lovable-uploads/dcf6ca16-0389-46eb-99ed-8e7ec60b0bcb.png",
+      price: "0.12 ETH",
       supply: "1,000"
     },
     {
-      name: "Trading Masters",
-      description: "NFTs exclusifs pour les meilleurs traders",
-      image: "/lovable-uploads/34a58283-8b82-48f9-88f4-2c88b069921d.png", 
-      price: "0.3 ETH",
+      name: "ShibaVik Classic",
+      description: "Version monochrome iconique de la collection Summer Era",
+      image: "/lovable-uploads/62eb8a2c-c9d5-4c86-97e6-79695ff89a29.png",
+      price: "0.15 ETH", 
       supply: "500"
-    },
-    {
-      name: "Shiba Legends",
-      description: "Collection rare avec des utilités spéciales",
-      image: "/lovable-uploads/39e309bf-81a7-40d8-a251-fe591e0b6da7.png",
-      price: "1.2 ETH", 
-      supply: "250"
     }
   ];
 
@@ -38,12 +38,12 @@ const NFTSection: React.FC<NFTSectionProps> = ({ className }) => {
         <div className="max-w-6xl mx-auto">
           <FadeIn>
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-serif mb-6 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                Collections NFT ShibaVik
+                <h2 className="text-4xl md:text-5xl font-serif mb-6 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                ShibaVik Summer Era
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Découvrez nos collections NFT exclusives développées par MS-ShibaVik. 
-                Chaque NFT offre des avantages uniques dans l'écosystème ShibaVik.
+                Découvrez la collection officielle ShibaVik Summer Era sur OpenSea. 
+                Chaque NFT offre des traits uniques et des avantages exclusifs dans l'écosystème ShibaVik.
               </p>
             </div>
           </FadeIn>
@@ -80,7 +80,7 @@ const NFTSection: React.FC<NFTSectionProps> = ({ className }) => {
                   </div>
                   
                   <InteractiveButton
-                    onClick={() => window.open('https://opensea.io/ShibaVik', '_blank')}
+                    onClick={() => window.open('https://opensea.io/collection/shibavik-summer-era/overview', '_blank')}
                     className="w-full bg-primary hover:bg-primary/90"
                   >
                     Voir sur OpenSea
@@ -92,18 +92,18 @@ const NFTSection: React.FC<NFTSectionProps> = ({ className }) => {
 
           <FadeIn delay={400}>
             <div className="text-center bg-card/50 rounded-2xl p-8 border border-border/30">
-              <h3 className="text-2xl font-semibold mb-4">Rejoignez la communauté NFT</h3>
+              <h3 className="text-2xl font-semibold mb-4">Collection ShibaVik Summer Era</h3>
               <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-                Possédez un NFT ShibaVik et accédez à des fonctionnalités exclusives, 
-                des airdrops et des avantages spéciaux dans notre écosystème.
+                Explorez la collection complète ShibaVik Summer Era sur OpenSea. 
+                Chaque NFT est unique avec des traits rares et des utilités spéciales.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <InteractiveButton
-                  onClick={() => window.open('https://opensea.io/ShibaVik', '_blank')}
+                  onClick={() => window.open('https://opensea.io/collection/shibavik-summer-era/overview', '_blank')}
                   className="bg-primary hover:bg-primary/90"
                 >
-                  Explorer OpenSea
+                  Voir Summer Era
                 </InteractiveButton>
                 <InteractiveButton
                   onClick={() => window.open('https://discord.gg/shibavik', '_blank')}
