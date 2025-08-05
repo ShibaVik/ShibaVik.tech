@@ -5,7 +5,7 @@ import Hero from '@/components/Hero';
 import Manifesto from '@/components/Manifesto';
 import CryptoShowcase from '@/components/CryptoShowcase';
 import TradingSimulator from '@/components/TradingSimulator';
-import Gap from '@/components/Gap';
+import NFTSection from '@/components/NFTSection';
 import FoundersInSearch from '@/components/FoundersInSearch';
 import InvestmentApproach from '@/components/InvestmentApproach';
 import Community from '@/components/Community';
@@ -48,7 +48,7 @@ const Index = () => {
       <Manifesto />
       <CryptoShowcase />
       <TradingSimulator />
-      <Gap />
+      <NFTSection />
       <About />
       <Community />
       <FoundersInSearch />
