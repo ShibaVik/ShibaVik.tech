@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
-import { cn } from '@/lib/utils';
+import React, { useState, useEffect } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search, TrendingUp } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Search, TrendingUp, Github, ExternalLink, AlertTriangle, CheckCircle } from 'lucide-react';
+import { useCryptoApi, CryptoPrice } from '@/hooks/useCryptoApi';
+import { useToast } from '@/hooks/use-toast';
+import ApiSettings from '@/components/ApiSettings';
+import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
 
 interface TradingSimulatorProps {
@@ -11,12 +16,105 @@ interface TradingSimulatorProps {
 
 const TradingSimulator: React.FC<TradingSimulatorProps> = ({ className }) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedToken, setSelectedToken] = useState<CryptoPrice | null>(null);
+  const [searchResults, setSearchResults] = useState<CryptoPrice[]>([]);
+  const [showApiSettings, setShowApiSettings] = useState(false);
+  const [tradeAmount, setTradeAmount] = useState('');
+  
+  const { getRealTimePrice, searchTokens, apiConfig, updateApiConfig, isLoading, error } = useCryptoApi();
+  const { toast } = useToast();
   const [balance] = useState(10000);
 
-  const handleSearch = (e: React.FormEvent) => {
+  const popularCryptos = [
+    { symbol: 'BTC', name: 'Bitcoin', id: 'bitcoin' },
+    { symbol: 'ETH', name: 'Ethereum', id: 'ethereum' },
+    { symbol: 'SOL', name: 'Solana', id: 'solana' },
+    { symbol: 'ADA', name: 'Cardano', id: 'cardano' },
+    { symbol: 'DOGE', name: 'Dogecoin', id: 'dogecoin' },
+    { symbol: 'MATIC', name: 'Polygon', id: 'matic-network' }
+  ];
+
+  // Handle search
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Searching for:', searchQuery);
+    if (!searchQuery.trim()) return;
+
+    const results = await searchTokens(searchQuery);
+    setSearchResults(results);
+    
+    if (results.length === 0) {
+      toast({
+        title: "Aucun résultat",
+        description: "Aucun token trouvé pour cette recherche",
+        variant: "destructive"
+      });
+    }
   };
+
+  // Handle token selection (popular cryptos)
+  const handleTokenSelect = async (tokenId: string) => {
+    const price = await getRealTimePrice(tokenId, false);
+    if (price) {
+      setSelectedToken(price);
+      setSearchQuery(price.symbol);
+      setSearchResults([]);
+    }
+  };
+
+  // Handle address input (for DexScreener)
+  const handleAddressInput = async (address: string) => {
+    if (address.length === 42 && address.startsWith('0x')) {
+      const price = await getRealTimePrice(address, true);
+      if (price) {
+        setSelectedToken(price);
+        setSearchResults([]);
+      }
+    }
+  };
+
+  // Handle trade execution
+  const handleTrade = async (type: 'buy' | 'sell') => {
+    if (!selectedToken || !tradeAmount) {
+      toast({
+        title: "Information manquante",
+        description: "Veuillez sélectionner un token et entrer un montant",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Get real-time price before executing trade
+    const currentPrice = await getRealTimePrice(
+      selectedToken.address || selectedToken.symbol.toLowerCase(), 
+      !!selectedToken.address
+    );
+
+    if (!currentPrice) {
+      toast({
+        title: "Erreur de prix",
+        description: "Impossible de récupérer le prix actuel",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const amount = parseFloat(tradeAmount);
+    const totalValue = type === 'buy' ? amount : amount * currentPrice.price;
+
+    toast({
+      title: `${type === 'buy' ? 'Achat' : 'Vente'} simulé`,
+      description: `${amount} ${currentPrice.symbol} à $${currentPrice.price.toFixed(6)} = $${totalValue.toFixed(2)}`,
+    });
+
+    // Update selected token with current price
+    setSelectedToken(currentPrice);
+  };
+
+  useEffect(() => {
+    if (searchQuery.length === 42 && searchQuery.startsWith('0x')) {
+      handleAddressInput(searchQuery);
+    }
+  }, [searchQuery]);
 
   const socialLinks = [
     { name: 'Twitter', symbol: '𝕏', href: 'https://twitter.com/ShibaVik', color: 'bg-blue-100 hover:bg-blue-200 text-blue-600' },
@@ -32,7 +130,7 @@ const TradingSimulator: React.FC<TradingSimulatorProps> = ({ className }) => {
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-serif mb-6">Trading Simulator</h2>
               <p className="text-lg text-muted-foreground mb-8">
-                Practice trading with virtual funds and build your skills
+                Practice trading with virtual funds and real-time crypto prices
               </p>
               
               <div className="flex items-center justify-center gap-6 mb-8">
@@ -71,40 +169,179 @@ const TradingSimulator: React.FC<TradingSimulatorProps> = ({ className }) => {
                 <h3 className="text-xl font-serif font-medium">Search Assets</h3>
               </div>
 
-              <form onSubmit={handleSearch} className="flex gap-3 mb-6">
-                <Input
-                  type="text"
-                  placeholder="Search by symbol or name (e.g. BTC, Bitcoin)"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1"
-                />
-                <Button 
-                  type="submit"
-                  className="bg-orangery-500 hover:bg-orangery-600 text-white"
-                >
-                  Search
-                </Button>
+              <form className="mb-6" onSubmit={handleSearch}>
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <Input
+                    type="text"
+                    placeholder="Rechercher une crypto ou entrer une adresse de contrat..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10 pr-4"
+                  />
+                  <Button type="submit" className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8" disabled={isLoading}>
+                    <Search className="h-4 w-4" />
+                  </Button>
+                </div>
               </form>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                {['BTC', 'ETH', 'SOL', 'BNB'].map((crypto) => (
-                  <button
-                    key={crypto}
-                    onClick={() => setSearchQuery(crypto)}
-                    className="p-3 border-2 border-orangery-200 rounded-lg hover:border-orangery-400 hover:bg-orangery-50 transition-all duration-300 transform hover:scale-105"
+              {/* API Status */}
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  {apiConfig.dexscreenerEnabled && (
+                    <Badge variant="outline" className="flex items-center gap-1">
+                      <CheckCircle className="h-3 w-3 text-green-600" />
+                      DexScreener
+                    </Badge>
+                  )}
+                  <Badge variant="outline" className="flex items-center gap-1">
+                    <CheckCircle className="h-3 w-3 text-green-600" />
+                    CoinGecko {apiConfig.coingeckoApiKey ? 'Pro' : 'Free'}
+                  </Badge>
+                </div>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => setShowApiSettings(!showApiSettings)}
+                >
+                  Paramètres API
+                </Button>
+              </div>
+
+              {/* API Settings */}
+              {showApiSettings && (
+                <div className="mb-6">
+                  <ApiSettings 
+                    apiConfig={apiConfig}
+                    onConfigUpdate={updateApiConfig}
+                  />
+                </div>
+              )}
+
+              {/* Error Display */}
+              {error && (
+                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md flex items-center gap-2">
+                  <AlertTriangle className="h-4 w-4 text-red-600" />
+                  <span className="text-red-700 text-sm">{error}</span>
+                </div>
+              )}
+
+              {/* Search Results */}
+              {searchResults.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold mb-3">Résultats de recherche</h3>
+                  <div className="space-y-2">
+                    {searchResults.map((token, index) => (
+                      <Card 
+                        key={index} 
+                        className="p-3 cursor-pointer hover:bg-gray-50 transition-colors"
+                        onClick={() => setSelectedToken(token)}
+                      >
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <div className="font-medium">{token.name}</div>
+                            <div className="text-sm text-gray-600">{token.symbol}</div>
+                          </div>
+                          <div className="text-right">
+                            <div className="font-medium">${token.price.toFixed(6)}</div>
+                            <div className={`text-sm ${token.priceChange24h >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                              {token.priceChange24h >= 0 ? '+' : ''}{token.priceChange24h.toFixed(2)}%
+                            </div>
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Selected Token */}
+              {selectedToken && (
+                <div className="mb-6">
+                  <Card className="p-4 bg-blue-50 border-blue-200">
+                    <div className="flex justify-between items-start mb-4">
+                      <div>
+                        <h3 className="text-lg font-semibold">{selectedToken.name}</h3>
+                        <p className="text-gray-600">{selectedToken.symbol}</p>
+                        {selectedToken.address && (
+                          <p className="text-xs text-gray-500 font-mono">
+                            {selectedToken.address.slice(0, 6)}...{selectedToken.address.slice(-4)}
+                          </p>
+                        )}
+                      </div>
+                      <div className="text-right">
+                        <div className="text-2xl font-bold">${selectedToken.price.toFixed(6)}</div>
+                        <div className={`text-sm ${selectedToken.priceChange24h >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                          {selectedToken.priceChange24h >= 0 ? '+' : ''}{selectedToken.priceChange24h.toFixed(2)}% (24h)
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
+                      <div>
+                        <span className="text-gray-600">Market Cap:</span>
+                        <div className="font-medium">${selectedToken.marketCap.toLocaleString()}</div>
+                      </div>
+                      <div>
+                        <span className="text-gray-600">Volume 24h:</span>
+                        <div className="font-medium">${selectedToken.volume24h.toLocaleString()}</div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <Input
+                        type="number"
+                        placeholder="Montant à trader"
+                        value={tradeAmount}
+                        onChange={(e) => setTradeAmount(e.target.value)}
+                        className="w-full"
+                      />
+                      <div className="flex gap-2">
+                        <Button 
+                          onClick={() => handleTrade('buy')} 
+                          className="flex-1 bg-green-600 hover:bg-green-700"
+                          disabled={isLoading}
+                        >
+                          Acheter
+                        </Button>
+                        <Button 
+                          onClick={() => handleTrade('sell')} 
+                          variant="outline"
+                          className="flex-1 border-red-600 text-red-600 hover:bg-red-50"
+                          disabled={isLoading}
+                        >
+                          Vendre
+                        </Button>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              )}
+
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+                {popularCryptos.map((crypto, index) => (
+                  <Card 
+                    key={index} 
+                    className="p-3 cursor-pointer hover:bg-gray-50 transition-colors"
+                    onClick={() => handleTokenSelect(crypto.id)}
                   >
-                    <div className="text-sm font-medium text-orangery-600">{crypto}</div>
-                  </button>
+                    <div className="text-center">
+                      <div className="font-medium">{crypto.symbol}</div>
+                      <div className="text-sm text-gray-600">{crypto.name}</div>
+                      <div className="text-sm font-medium text-blue-600">Sélectionner</div>
+                    </div>
+                  </Card>
                 ))}
               </div>
               
-              <div className="text-center py-8 border-2 border-dashed border-orangery-200 rounded-lg hover:border-orangery-300 transition-colors">
-                <TrendingUp className="w-12 h-12 text-orangery-400 mx-auto mb-4 animate-pulse" />
-                <p className="text-muted-foreground">
-                  Sélectionnez une cryptomonnaie pour commencer à trader
-                </p>
-              </div>
+              {!selectedToken && (
+                <div className="text-center py-8 border-2 border-dashed border-orangery-200 rounded-lg hover:border-orangery-300 transition-colors">
+                  <TrendingUp className="w-12 h-12 text-orangery-400 mx-auto mb-4 animate-pulse" />
+                  <p className="text-muted-foreground">
+                    Sélectionnez une cryptomonnaie pour commencer à trader
+                  </p>
+                </div>
+              )}
             </div>
           </FadeIn>
 

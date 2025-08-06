@@ -20,6 +20,13 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
   }, []);
 
   const scrollToSection = (id: string) => {
+    // Check if we're on the home page
+    if (window.location.pathname !== '/') {
+      // If not on home page, navigate to home first, then scroll
+      window.location.href = `/#${id}`;
+      return;
+    }
+
     if (id === 'home') {
       window.scrollTo({
         top: 0,
@@ -103,7 +110,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           <button 
             className="text-left hover:text-orangery-500 transition-colors"
             onClick={() => {
-              scrollToSection('thesis');
+              scrollToSection('trading-simulator');
               setIsMobileMenuOpen(false);
             }}
           >
@@ -175,7 +182,7 @@ const NavLinks: React.FC<NavLinksProps> = ({ scrollToSection }) => (
     </button>
     <button 
       className="text-sm font-medium hover:text-orangery-500 transition-colors"
-      onClick={() => scrollToSection('thesis')}
+      onClick={() => scrollToSection('trading-simulator')}
     >
       Simulator
     </button>

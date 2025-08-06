@@ -47,11 +47,21 @@ const Index = () => {
       <Hero />
       <Manifesto />
       <CryptoShowcase />
-      <TradingSimulator />
-      <NFTSection />
-      <About />
-      <Community />
-      <FoundersInSearch />
+      <div id="trading-simulator">
+        <TradingSimulator />
+      </div>
+      <div id="nft">
+        <NFTSection />
+      </div>
+      <div id="history">
+        <About />
+      </div>
+      <div id="settings">
+        <Community />
+      </div>
+      <div id="signup">
+        <FoundersInSearch />
+      </div>
       <InvestmentApproach />
       <Footer />
     </main>
