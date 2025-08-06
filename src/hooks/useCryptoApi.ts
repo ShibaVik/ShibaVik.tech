@@ -8,6 +8,22 @@ export interface CryptoPrice {
   marketCap: number;
   volume24h: number;
   address?: string;
+  blockchain?: string;
+  logoUrl?: string;
+}
+
+export interface PortfolioHolding {
+  id: string;
+  symbol: string;
+  name: string;
+  amount: number;
+  price: number;
+  value: number;
+  change: number;
+  isPositive: boolean;
+  address?: string;
+  blockchain?: string;
+  logoUrl?: string;
 }
 
 export interface ApiConfig {
@@ -120,6 +136,58 @@ export const useCryptoApi = () => {
     }
   }, [getDexScreenerPrice, getCoinGeckoPrice, apiConfig]);
 
+  // Get popular tokens by blockchain
+  const getPopularTokensByBlockchain = useCallback(async (blockchain: string): Promise<CryptoPrice[]> => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      // Popular tokens for each blockchain
+      const popularTokens: Record<string, string[]> = {
+        solana: ['solana', 'serum', 'raydium', 'orca', 'mango-markets', 'step-finance'],
+        ethereum: ['ethereum', 'chainlink', 'uniswap', 'aave', 'compound-governance-token', 'the-graph'],
+        bsc: ['binancecoin', 'pancakeswap-token', 'trust-wallet-token', 'venus', 'alpaca-finance', 'bakerytoken'],
+        base: ['ethereum', 'coinbase-wrapped-staked-eth', 'uniswap', 'aave', 'chainlink', 'wrapped-bitcoin']
+      };
+
+      const tokenIds = popularTokens[blockchain.toLowerCase()] || popularTokens.ethereum;
+      
+      const response = await fetch(
+        `https://api.coingecko.com/api/v3/simple/price?ids=${tokenIds.join(',')}&vs_currencies=usd&include_24hr_change=true&include_market_cap=true&include_24hr_vol=true`,
+        {
+          headers: apiConfig.coingeckoApiKey ? {
+            'X-CG-Demo-API-Key': apiConfig.coingeckoApiKey
+          } : {}
+        }
+      );
+
+      if (!response.ok) throw new Error('Failed to fetch popular tokens');
+
+      const data = await response.json();
+      
+      return tokenIds.map(tokenId => {
+        const tokenData = data[tokenId];
+        if (!tokenData) return null;
+        
+        return {
+          symbol: tokenId.replace('-', '').substring(0, 6).toUpperCase(),
+          name: tokenId.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+          price: tokenData.usd || 0,
+          priceChange24h: tokenData.usd_24h_change || 0,
+          marketCap: tokenData.usd_market_cap || 0,
+          volume24h: tokenData.usd_24h_vol || 0,
+          blockchain: blockchain
+        };
+      }).filter(Boolean) as CryptoPrice[];
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch popular tokens';
+      setError(errorMessage);
+      return [];
+    } finally {
+      setIsLoading(false);
+    }
+  }, [apiConfig.coingeckoApiKey]);
+
   // Search tokens by name or symbol
   const searchTokens = useCallback(async (query: string): Promise<CryptoPrice[]> => {
     setIsLoading(true);
@@ -183,6 +251,7 @@ export const useCryptoApi = () => {
   return {
     getRealTimePrice,
     searchTokens,
+    getPopularTokensByBlockchain,
     apiConfig,
     updateApiConfig,
     isLoading,

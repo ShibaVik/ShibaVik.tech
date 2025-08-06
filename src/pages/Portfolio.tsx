@@ -1,17 +1,55 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '@/components/Header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { TrendingUp, TrendingDown, DollarSign, PieChart } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { TrendingUp, TrendingDown, DollarSign, PieChart, Trash2, Settings } from 'lucide-react';
 import FadeIn from '@/components/animations/FadeIn';
+import AddCryptoDialog from '@/components/AddCryptoDialog';
+import { usePortfolio } from '@/hooks/usePortfolio';
+import { useCryptoApi } from '@/hooks/useCryptoApi';
+import { useToast } from '@/hooks/use-toast';
 
 const Portfolio = () => {
-  const holdings = [
-    { symbol: 'BTC', name: 'Bitcoin', amount: 0.5, value: 59777, change: 2.4, isPositive: true },
-    { symbol: 'ETH', name: 'Ethereum', amount: 3.2, value: 12574, change: -1.2, isPositive: false },
-    { symbol: 'SOL', name: 'Solana', amount: 15, value: 2913, change: 5.6, isPositive: true },
-  ];
+  const { 
+    portfolio, 
+    addToPortfolio, 
+    removeFromPortfolio, 
+    updatePrices, 
+    totalValue, 
+    totalChange 
+  } = usePortfolio();
+  const { getRealTimePrice } = useCryptoApi();
+  const { toast } = useToast();
 
-  const totalValue = holdings.reduce((sum, holding) => sum + holding.value, 0);
+  // Update prices every 30 seconds
+  useEffect(() => {
+    const updateAllPrices = async () => {
+      const priceUpdates = await Promise.all(
+        portfolio.map(async (holding) => {
+          const priceData = await getRealTimePrice(holding.symbol.toLowerCase());
+          if (priceData) {
+            return {
+              symbol: holding.symbol,
+              price: priceData.price,
+              change: priceData.priceChange24h
+            };
+          }
+          return null;
+        })
+      );
+
+      const validUpdates = priceUpdates.filter(Boolean) as { symbol: string; price: number; change: number }[];
+      if (validUpdates.length > 0) {
+        updatePrices(validUpdates);
+      }
+    };
+
+    const interval = setInterval(updateAllPrices, 30000); // Update every 30 seconds
+    updateAllPrices(); // Initial update
+
+    return () => clearInterval(interval);
+  }, [portfolio, getRealTimePrice, updatePrices]);
 
   return (
     <main className="relative min-h-screen bg-gray-50">
@@ -34,7 +72,9 @@ const Portfolio = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">${totalValue.toLocaleString()}</div>
-                  <p className="text-xs text-muted-foreground">+4.2% depuis hier</p>
+                  <p className={`text-xs ${totalChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    {totalChange >= 0 ? '+' : ''}{totalChange.toFixed(2)}% depuis hier
+                  </p>
                 </CardContent>
               </Card>
             </FadeIn>
@@ -46,7 +86,7 @@ const Portfolio = () => {
                   <PieChart className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{holdings.length}</div>
+                  <div className="text-2xl font-bold">{portfolio.length}</div>
                   <p className="text-xs text-muted-foreground">Cryptomonnaies détenues</p>
                 </CardContent>
               </Card>
@@ -55,32 +95,66 @@ const Portfolio = () => {
 
           <FadeIn delay={300}>
             <Card>
-              <CardHeader>
+              <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle>Mes Holdings</CardTitle>
+                <AddCryptoDialog onAddCrypto={addToPortfolio} />
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {holdings.map((holding, index) => (
-                    <div key={holding.symbol} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                      <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 bg-orangery-100 rounded-full flex items-center justify-center">
-                          <span className="font-bold text-orangery-600">{holding.symbol}</span>
+                {portfolio.length === 0 ? (
+                  <div className="text-center py-8">
+                    <p className="text-muted-foreground mb-4">Aucune cryptomonnaie dans votre portfolio</p>
+                    <AddCryptoDialog onAddCrypto={addToPortfolio} />
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {portfolio.map((holding) => (
+                      <div key={holding.id} className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 bg-orangery-100 rounded-full flex items-center justify-center">
+                            <span className="font-bold text-orangery-600">{holding.symbol.slice(0, 3)}</span>
+                          </div>
+                          <div>
+                            <div className="font-medium">{holding.name}</div>
+                            <div className="text-sm text-muted-foreground flex items-center gap-2">
+                              {holding.amount} {holding.symbol}
+                              {holding.blockchain && (
+                                <Badge variant="outline" className="text-xs">
+                                  {holding.blockchain}
+                                </Badge>
+                              )}
+                            </div>
+                            <div className="text-xs text-muted-foreground">
+                              ${holding.price.toFixed(6)} par unité
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                          <div className="font-medium">{holding.name}</div>
-                          <div className="text-sm text-muted-foreground">{holding.amount} {holding.symbol}</div>
+                        <div className="flex items-center gap-4">
+                          <div className="text-right">
+                            <div className="font-medium">${holding.value.toLocaleString()}</div>
+                            <div className={`text-sm flex items-center gap-1 ${holding.isPositive ? 'text-green-600' : 'text-red-600'}`}>
+                              {holding.isPositive ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                              {holding.change.toFixed(2)}%
+                            </div>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              removeFromPortfolio(holding.id);
+                              toast({
+                                title: "Crypto supprimée",
+                                description: `${holding.name} a été retiré de votre portfolio.`,
+                              });
+                            }}
+                            className="text-destructive hover:text-destructive"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <div className="font-medium">${holding.value.toLocaleString()}</div>
-                        <div className={`text-sm flex items-center gap-1 ${holding.isPositive ? 'text-green-600' : 'text-red-600'}`}>
-                          {holding.isPositive ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                          {holding.change}%
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </FadeIn>
