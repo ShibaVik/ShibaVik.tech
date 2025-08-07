@@ -8,9 +8,10 @@ import { Badge } from '@/components/ui/badge';
 import { Plus, Search, TrendingUp, TrendingDown } from 'lucide-react';
 import { useCryptoApi, CryptoPrice } from '@/hooks/useCryptoApi';
 import { PortfolioHolding } from '@/hooks/useCryptoApi';
+import { SupabasePortfolioHolding } from '@/hooks/useSupabasePortfolio';
 
 interface AddCryptoDialogProps {
-  onAddCrypto: (crypto: Omit<PortfolioHolding, 'id' | 'value'>) => void;
+  onAddCrypto: (crypto: Omit<SupabasePortfolioHolding, 'id' | 'created_at' | 'updated_at'>) => void;
 }
 
 const AddCryptoDialog: React.FC<AddCryptoDialogProps> = ({ onAddCrypto }) => {
@@ -59,11 +60,10 @@ const AddCryptoDialog: React.FC<AddCryptoDialogProps> = ({ onAddCrypto }) => {
         name: selectedCrypto.name,
         amount: parseFloat(amount),
         price: selectedCrypto.price,
-        change: selectedCrypto.priceChange24h,
-        isPositive: selectedCrypto.priceChange24h >= 0,
-        address: selectedCrypto.address,
-        blockchain: selectedCrypto.blockchain,
-        logoUrl: selectedCrypto.logoUrl
+        value: parseFloat(amount) * selectedCrypto.price,
+        change_percentage: selectedCrypto.priceChange24h,
+        blockchain: selectedCrypto.blockchain || 'ethereum',
+        token_address: selectedCrypto.address
       });
       setIsOpen(false);
       setSelectedCrypto(null);

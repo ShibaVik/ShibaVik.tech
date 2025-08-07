@@ -6,24 +6,29 @@ import { Badge } from '@/components/ui/badge';
 import { TrendingUp, TrendingDown, DollarSign, PieChart, Trash2, Settings } from 'lucide-react';
 import FadeIn from '@/components/animations/FadeIn';
 import AddCryptoDialog from '@/components/AddCryptoDialog';
-import { usePortfolio } from '@/hooks/usePortfolio';
+import { useSupabasePortfolio } from '@/hooks/useSupabasePortfolio';
 import { useCryptoApi } from '@/hooks/useCryptoApi';
+import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 
 const Portfolio = () => {
+  const { user, loading: authLoading } = useAuth();
   const { 
     portfolio, 
+    loading,
     addToPortfolio, 
     removeFromPortfolio, 
     updatePrices, 
     totalValue, 
     totalChange 
-  } = usePortfolio();
+  } = useSupabasePortfolio(user?.id);
   const { getRealTimePrice } = useCryptoApi();
   const { toast } = useToast();
 
   // Update prices every 30 seconds
   useEffect(() => {
+    if (!user || portfolio.length === 0) return;
+
     const updateAllPrices = async () => {
       const priceUpdates = await Promise.all(
         portfolio.map(async (holding) => {
@@ -49,7 +54,42 @@ const Portfolio = () => {
     updateAllPrices(); // Initial update
 
     return () => clearInterval(interval);
-  }, [portfolio, getRealTimePrice, updatePrices]);
+  }, [user, portfolio, getRealTimePrice, updatePrices]);
+
+  if (authLoading || loading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="container mx-auto px-4 pt-24 flex justify-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orangery-600"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="container mx-auto px-4 pt-24 text-center">
+          <Card className="max-w-md mx-auto">
+            <CardContent className="pt-6">
+              <h2 className="text-xl font-semibold mb-4">Connexion requise</h2>
+              <p className="text-muted-foreground mb-4">
+                Vous devez être connecté pour voir votre portfolio.
+              </p>
+              <a 
+                href="/auth" 
+                className="inline-flex items-center px-4 py-2 bg-orangery-600 text-white rounded-md hover:bg-orangery-700 transition-colors"
+              >
+                Se connecter
+              </a>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <main className="relative min-h-screen bg-gray-50">
@@ -131,9 +171,9 @@ const Portfolio = () => {
                         <div className="flex items-center gap-4">
                           <div className="text-right">
                             <div className="font-medium">${holding.value.toLocaleString()}</div>
-                            <div className={`text-sm flex items-center gap-1 ${holding.isPositive ? 'text-green-600' : 'text-red-600'}`}>
-                              {holding.isPositive ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                              {holding.change.toFixed(2)}%
+                            <div className={`text-sm flex items-center gap-1 ${holding.change_percentage >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                              {holding.change_percentage >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                              {holding.change_percentage.toFixed(2)}%
                             </div>
                           </div>
                           <Button
@@ -141,10 +181,6 @@ const Portfolio = () => {
                             size="sm"
                             onClick={() => {
                               removeFromPortfolio(holding.id);
-                              toast({
-                                title: "Crypto supprimée",
-                                description: `${holding.name} a été retiré de votre portfolio.`,
-                              });
                             }}
                             className="text-destructive hover:text-destructive"
                           >

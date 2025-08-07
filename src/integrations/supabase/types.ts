@@ -14,7 +14,117 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      portfolio_holdings: {
+        Row: {
+          amount: number
+          blockchain: string
+          change_percentage: number
+          created_at: string
+          id: string
+          name: string
+          price: number
+          symbol: string
+          token_address: string | null
+          updated_at: string
+          user_id: string
+          value: number
+        }
+        Insert: {
+          amount?: number
+          blockchain: string
+          change_percentage?: number
+          created_at?: string
+          id?: string
+          name: string
+          price?: number
+          symbol: string
+          token_address?: string | null
+          updated_at?: string
+          user_id: string
+          value?: number
+        }
+        Update: {
+          amount?: number
+          blockchain?: string
+          change_percentage?: number
+          created_at?: string
+          id?: string
+          name?: string
+          price?: number
+          symbol?: string
+          token_address?: string | null
+          updated_at?: string
+          user_id?: string
+          value?: number
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      transaction_history: {
+        Row: {
+          amount: number
+          blockchain: string
+          created_at: string
+          id: string
+          name: string
+          price: number
+          symbol: string
+          token_address: string | null
+          total_value: number
+          type: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          blockchain: string
+          created_at?: string
+          id?: string
+          name: string
+          price: number
+          symbol: string
+          token_address?: string | null
+          total_value: number
+          type: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          blockchain?: string
+          created_at?: string
+          id?: string
+          name?: string
+          price?: number
+          symbol?: string
+          token_address?: string | null
+          total_value?: number
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

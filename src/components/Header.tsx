@@ -126,15 +126,16 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           >
             Portfolio
           </NavLink>
-          <button 
-            className="text-left hover:text-orangery-500 transition-colors"
-            onClick={() => {
-              scrollToSection('history');
-              setIsMobileMenuOpen(false);
-            }}
+          <NavLink
+            to="/history"
+            className={({ isActive }) => cn(
+              "text-left hover:text-orangery-500 transition-colors",
+              isActive && "text-orangery-500 font-semibold"
+            )}
+            onClick={() => setIsMobileMenuOpen(false)}
           >
             History
-          </button>
+          </NavLink>
           <button 
             className="text-left hover:text-orangery-500 transition-colors"
             onClick={() => {
@@ -153,15 +154,16 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           >
             Settings
           </button>
-          <button 
-            className="text-left hover:text-orangery-500 transition-colors"
-            onClick={() => {
-              scrollToSection('signup');
-              setIsMobileMenuOpen(false);
-            }}
+          <NavLink
+            to="/auth"
+            className={({ isActive }) => cn(
+              "text-left hover:text-orangery-500 transition-colors",
+              isActive && "text-orangery-500 font-semibold"
+            )}
+            onClick={() => setIsMobileMenuOpen(false)}
           >
             Registration
-          </button>
+          </NavLink>
         </nav>
       </div>
     </header>
@@ -192,12 +194,12 @@ const NavLinks: React.FC<NavLinksProps> = ({ scrollToSection }) => (
     >
       Portfolio
     </NavLink>
-    <button 
+    <NavLink
+      to="/history" 
       className="text-sm font-medium hover:text-orangery-500 transition-colors"
-      onClick={() => scrollToSection('history')}
     >
       History
-    </button>
+    </NavLink>
     <button 
       className="text-sm font-medium hover:text-orangery-500 transition-colors"
       onClick={() => scrollToSection('nft')}
@@ -210,12 +212,12 @@ const NavLinks: React.FC<NavLinksProps> = ({ scrollToSection }) => (
     >
       Settings
     </button>
-    <button 
+    <NavLink
+      to="/auth" 
       className="text-sm font-medium hover:text-orangery-500 transition-colors"
-      onClick={() => scrollToSection('signup')}
     >
       Registration
-    </button>
+    </NavLink>
   </>
 );
 

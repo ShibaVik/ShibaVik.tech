@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import FadeIn from './animations/FadeIn';
+import { useCryptoApi } from '@/hooks/useCryptoApi';
 
 interface CryptoShowcaseProps {
   className?: string;
 }
 
 const CryptoShowcase: React.FC<CryptoShowcaseProps> = ({ className }) => {
-  const cryptos = [
+  const { getRealTimePrice } = useCryptoApi();
+  const [cryptos, setCryptos] = useState([
     {
       id: 'bitcoin',
       symbol: 'BTC',
@@ -46,7 +48,45 @@ const CryptoShowcase: React.FC<CryptoShowcaseProps> = ({ className }) => {
       isPositive: true,
       icon: '⬢'
     }
-  ];
+  ]);
+
+  const [lastUpdate, setLastUpdate] = useState(new Date());
+
+  useEffect(() => {
+    const updatePrices = async () => {
+      try {
+        const updatedCryptos = await Promise.all(
+          cryptos.map(async (crypto) => {
+            const priceData = await getRealTimePrice(crypto.symbol.toLowerCase());
+            if (priceData) {
+              return {
+                ...crypto,
+                price: `$${priceData.price.toLocaleString('en-US', { 
+                  minimumFractionDigits: 2, 
+                  maximumFractionDigits: 2 
+                })}`,
+                change: `${priceData.priceChange24h > 0 ? '+' : ''}${priceData.priceChange24h.toFixed(2)}%`,
+                isPositive: priceData.priceChange24h >= 0
+              };
+            }
+            return crypto;
+          })
+        );
+        setCryptos(updatedCryptos);
+        setLastUpdate(new Date());
+      } catch (error) {
+        console.error('Error updating crypto prices:', error);
+      }
+    };
+
+    // Update prices immediately
+    updatePrices();
+    
+    // Update every 30 seconds
+    const interval = setInterval(updatePrices, 30000);
+    
+    return () => clearInterval(interval);
+  }, [getRealTimePrice]);
 
   return (
     <section className={cn('py-20 bg-gray-50', className)}>
@@ -100,7 +140,7 @@ const CryptoShowcase: React.FC<CryptoShowcaseProps> = ({ className }) => {
         <FadeIn delay={400}>
           <div className="text-center mt-8">
             <p className="text-sm text-muted-foreground">
-              Last updated: {new Date().toLocaleTimeString('en-US', { 
+              Dernière mise à jour: {lastUpdate.toLocaleTimeString('fr-FR', { 
                 hour: '2-digit', 
                 minute: '2-digit' 
               })}
