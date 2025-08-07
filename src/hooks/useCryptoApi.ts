@@ -74,30 +74,43 @@ export const useCryptoApi = () => {
   // Get price from DexScreener by token address
   const getDexScreenerPrice = useCallback(async (tokenAddress: string): Promise<CryptoPrice | null> => {
     try {
+      console.log('Fetching from DexScreener for address:', tokenAddress);
       const response = await fetch(
         `https://api.dexscreener.com/latest/dex/tokens/${tokenAddress}`
       );
       
-      if (!response.ok) throw new Error('Failed to fetch from DexScreener');
+      if (!response.ok) {
+        console.error('DexScreener API response not ok:', response.status, response.statusText);
+        throw new Error('Failed to fetch from DexScreener');
+      }
       
       const data = await response.json();
+      console.log('DexScreener API response:', data);
       
-      if (!data.pairs || data.pairs.length === 0) return null;
+      if (!data.pairs || data.pairs.length === 0) {
+        console.log('No pairs found for token:', tokenAddress);
+        return null;
+      }
       
       // Get the pair with highest liquidity
       const bestPair = data.pairs.reduce((best: any, current: any) => 
         (current.liquidity?.usd || 0) > (best.liquidity?.usd || 0) ? current : best
       );
       
-      return {
+      const tokenInfo = {
         symbol: bestPair.baseToken.symbol,
         name: bestPair.baseToken.name,
         price: parseFloat(bestPair.priceUsd || '0'),
         priceChange24h: parseFloat(bestPair.priceChange?.h24 || '0'),
         marketCap: bestPair.marketCap || 0,
         volume24h: parseFloat(bestPair.volume?.h24 || '0'),
-        address: tokenAddress
+        address: tokenAddress,
+        blockchain: bestPair.chainId || 'unknown',
+        logoUrl: bestPair.baseToken.logo || null
       };
+      
+      console.log('Token info found:', tokenInfo);
+      return tokenInfo;
     } catch (err) {
       console.error('DexScreener API error:', err);
       return null;
@@ -188,12 +201,29 @@ export const useCryptoApi = () => {
     }
   }, [apiConfig.coingeckoApiKey]);
 
-  // Search tokens by name or symbol
+  // Search tokens by name, symbol or address
   const searchTokens = useCallback(async (query: string): Promise<CryptoPrice[]> => {
     setIsLoading(true);
     setError(null);
 
     try {
+      // Check if query looks like a token address (long alphanumeric string)
+      const isAddress = /^[A-Za-z0-9]{32,}$/.test(query.trim());
+      
+      if (isAddress) {
+        console.log('Searching by address:', query);
+        // Try to get price from DexScreener first for addresses
+        const addressResult = await getDexScreenerPrice(query.trim());
+        if (addressResult) {
+          return [addressResult];
+        }
+        
+        // If DexScreener fails, set error message for the component to handle
+        setError("Token non trouvé avec cette adresse. Vérifiez que l'adresse est correcte et que le token est tradé sur les DEX supportés.");
+        return [];
+      }
+
+      // Search by name/symbol using CoinGecko
       const response = await fetch(
         `https://api.coingecko.com/api/v3/search?query=${encodeURIComponent(query)}`,
         {
@@ -232,7 +262,8 @@ export const useCryptoApi = () => {
           price: priceData?.usd || 0,
           priceChange24h: priceData?.usd_24h_change || 0,
           marketCap: priceData?.usd_market_cap || 0,
-          volume24h: priceData?.usd_24h_vol || 0
+          volume24h: priceData?.usd_24h_vol || 0,
+          logoUrl: coin.large || coin.thumb
         };
       });
     } catch (err) {
@@ -242,7 +273,7 @@ export const useCryptoApi = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [apiConfig.coingeckoApiKey]);
+  }, [apiConfig.coingeckoApiKey, getDexScreenerPrice]);
 
   const updateApiConfig = useCallback((newConfig: Partial<ApiConfig>) => {
     setApiConfig(prev => ({ ...prev, ...newConfig }));
