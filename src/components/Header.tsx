@@ -148,24 +148,26 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           >
             History
           </NavLink>
-          <button 
-            className="text-left hover:text-orangery-500 transition-colors"
-            onClick={() => {
-              scrollToSection('nft');
-              setIsMobileMenuOpen(false);
-            }}
+          <NavLink
+            to="/nft"
+            className={({ isActive }) => cn(
+              "text-left hover:text-orangery-500 transition-colors",
+              isActive && "text-orangery-500 font-semibold"
+            )}
+            onClick={() => setIsMobileMenuOpen(false)}
           >
             NFT
-          </button>
-          <button 
-            className="text-left hover:text-orangery-500 transition-colors"
-            onClick={() => {
-              scrollToSection('settings');
-              setIsMobileMenuOpen(false);
-            }}
+          </NavLink>
+          <NavLink
+            to="/settings"
+            className={({ isActive }) => cn(
+              "text-left hover:text-orangery-500 transition-colors",
+              isActive && "text-orangery-500 font-semibold"
+            )}
+            onClick={() => setIsMobileMenuOpen(false)}
           >
             Settings
-          </button>
+          </NavLink>
           <NavLink
             to="/auth"
             className={({ isActive }) => cn(
@@ -234,28 +236,28 @@ const NavLinks: React.FC<NavLinksProps> = ({ scrollToSection, isScrolled }) => (
     >
       History
     </NavLink>
-    <button 
+    <NavLink
+      to="/nft"
       className={cn(
         "text-sm font-medium transition-all duration-300",
         isScrolled 
           ? "text-foreground hover:text-orangery-500" 
           : "text-white hover:text-orangery-300"
       )}
-      onClick={() => scrollToSection('nft')}
     >
       NFT
-    </button>
-    <button 
+    </NavLink>
+    <NavLink
+      to="/settings"
       className={cn(
         "text-sm font-medium transition-all duration-300",
         isScrolled 
           ? "text-foreground hover:text-orangery-500" 
           : "text-white hover:text-orangery-300"
       )}
-      onClick={() => scrollToSection('settings')}
     >
       Settings
-    </button>
+    </NavLink>
     <NavLink
       to="/auth" 
       className={cn(

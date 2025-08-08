@@ -8,6 +8,8 @@ import NotFound from "./pages/NotFound";
 import Portfolio from "./pages/Portfolio";
 import Auth from "./pages/Auth";
 import History from "./pages/History";
+import Settings from "./pages/Settings";
+import NFT from "./pages/NFT";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +24,8 @@ const App = () => (
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/history" element={<History />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/nft" element={<NFT />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

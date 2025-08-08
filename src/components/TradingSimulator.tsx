@@ -23,7 +23,25 @@ const TradingSimulator: React.FC<TradingSimulatorProps> = ({ className }) => {
   
   const { getRealTimePrice, searchTokens, apiConfig, updateApiConfig, isLoading, error } = useCryptoApi();
   const { toast } = useToast();
-  const [balance] = useState(10000);
+  
+  // Use localStorage for demo balance
+  const [balance, setBalance] = useState(() => {
+    const stored = localStorage.getItem('demoBalance');
+    return stored ? parseFloat(stored) : 10000;
+  });
+
+  // Update balance when localStorage changes
+  useEffect(() => {
+    const updateBalance = () => {
+      const stored = localStorage.getItem('demoBalance');
+      if (stored) {
+        setBalance(parseFloat(stored));
+      }
+    };
+    
+    window.addEventListener('storage', updateBalance);
+    return () => window.removeEventListener('storage', updateBalance);
+  }, []);
 
   const popularCryptos = [
     { symbol: 'BTC', name: 'Bitcoin', id: 'bitcoin' },

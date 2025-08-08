@@ -11,7 +11,6 @@ import InvestmentApproach from '@/components/InvestmentApproach';
 import Community from '@/components/Community';
 import About from '@/components/About';
 import Footer from '@/components/Footer';
-import Settings from '@/components/Settings';
 
 const Index = () => {
   useEffect(() => {
@@ -50,12 +49,6 @@ const Index = () => {
       <CryptoShowcase />
       <div id="trading-simulator">
         <TradingSimulator />
-      </div>
-      <div id="nft">
-        <NFTSection />
-      </div>
-      <div id="settings">
-        <Settings />
       </div>
       <About />
       <Community />
