@@ -44,7 +44,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 className="w-12 h-12 rounded-lg bg-orangery-100 hover:bg-orangery-200 flex items-center justify-center transition-colors group"
                 title="Twitter"
               >
-                <span className="text-orangery-600 text-xl font-medium group-hover:scale-110 transition-transform">𝕏</span>
+                <img src="/src/assets/twitter-logo.png" alt="Twitter" className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </a>
               <a
                 href="https://www.linkedin.com/in/sullyvan-milhau"
@@ -53,7 +53,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 className="w-12 h-12 rounded-lg bg-orangery-100 hover:bg-orangery-200 flex items-center justify-center transition-colors group"
                 title="LinkedIn"
               >
-                <span className="text-orangery-600 text-lg font-medium group-hover:scale-110 transition-transform">in</span>
+                <img src="/src/assets/linkedin-logo.png" alt="LinkedIn" className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </a>
               <a
                 href="https://opensea.io/ShibaVik"

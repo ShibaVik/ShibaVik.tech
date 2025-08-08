@@ -135,9 +135,9 @@ const TradingSimulator: React.FC<TradingSimulatorProps> = ({ className }) => {
   }, [searchQuery]);
 
   const socialLinks = [
-    { name: 'Twitter', symbol: '𝕏', href: 'https://twitter.com/ShibaVik', color: 'bg-blue-100 hover:bg-blue-200 text-blue-600' },
-    { name: 'GitHub', symbol: 'GH', href: 'https://github.com/ShibaVik', color: 'bg-gray-100 hover:bg-gray-200 text-gray-700' },
-    { name: 'OpenSea', symbol: '🌊', href: 'https://opensea.io/ShibaVik', color: 'bg-cyan-100 hover:bg-cyan-200 text-cyan-600' },
+    { name: 'Twitter', logo: '/src/assets/twitter-logo.png', href: 'https://twitter.com/ShibaVik', color: 'bg-blue-100 hover:bg-blue-200 text-blue-600' },
+    { name: 'GitHub', logo: '/src/assets/github-logo.png', href: 'https://github.com/ShibaVik', color: 'bg-gray-100 hover:bg-gray-200 text-gray-700' },
+    { name: 'OpenSea', logo: '/src/assets/opensea-logo.png', href: 'https://opensea.io/ShibaVik', color: 'bg-cyan-100 hover:bg-cyan-200 text-cyan-600' },
   ];
 
   return (
@@ -172,7 +172,7 @@ const TradingSimulator: React.FC<TradingSimulatorProps> = ({ className }) => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <span className="text-sm font-medium">{link.symbol}</span>
+                      <img src={link.logo} alt={link.name} className="w-5 h-5" />
                     </a>
                   ))}
                 </div>

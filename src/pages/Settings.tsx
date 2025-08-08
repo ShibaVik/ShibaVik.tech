@@ -5,7 +5,7 @@ import Settings from '@/components/Settings';
 const SettingsPage = () => {
   return (
     <main className="relative min-h-screen bg-gray-50">
-      <Header />
+      <Header forceScrolledStyle={true} />
       <div className="pt-24">
         <Settings />
       </div>
