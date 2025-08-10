@@ -67,29 +67,8 @@ const Portfolio = () => {
     );
   }
 
-  if (!user) {
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <Header />
-        <div className="container mx-auto px-4 pt-24 text-center">
-          <Card className="max-w-md mx-auto">
-            <CardContent className="pt-6">
-              <h2 className="text-xl font-semibold mb-4">Connexion requise</h2>
-              <p className="text-muted-foreground mb-4">
-                Vous devez être connecté pour voir votre portfolio.
-              </p>
-              <a 
-                href="/auth" 
-                className="inline-flex items-center px-4 py-2 bg-orangery-600 text-white rounded-md hover:bg-orangery-700 transition-colors"
-              >
-                Se connecter
-              </a>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    );
-  }
+  // Allow access to portfolio without login but with limited functionality
+  const isGuestMode = !user;
 
   return (
     <main className="relative min-h-screen bg-gray-50">
@@ -98,8 +77,25 @@ const Portfolio = () => {
         <div className="container mx-auto px-4 md:px-6">
           <FadeIn>
             <div className="text-center mb-8">
-              <h1 className="text-4xl font-serif mb-4">Mon Portfolio</h1>
-              <p className="text-lg text-muted-foreground">Gérez et suivez vos investissements crypto</p>
+              <h1 className="text-4xl font-serif mb-4">
+                {isGuestMode ? 'Portfolio Demo' : 'Mon Portfolio'}
+              </h1>
+              <p className="text-lg text-muted-foreground">
+                {isGuestMode 
+                  ? 'Explorez les fonctionnalités du portfolio. Créez un compte pour sauvegarder vos positions.'
+                  : 'Gérez et suivez vos investissements crypto'
+                }
+              </p>
+              {isGuestMode && (
+                <div className="mt-4">
+                  <a 
+                    href="/auth" 
+                    className="inline-flex items-center px-6 py-3 bg-orangery-600 text-white rounded-md hover:bg-orangery-700 transition-colors"
+                  >
+                    Créer un compte pour sauvegarder
+                  </a>
+                </div>
+              )}
             </div>
           </FadeIn>
 
@@ -142,7 +138,12 @@ const Portfolio = () => {
               <CardContent>
                 {portfolio.length === 0 ? (
                   <div className="text-center py-8">
-                    <p className="text-muted-foreground mb-4">Aucune cryptomonnaie dans votre portfolio</p>
+                    <p className="text-muted-foreground mb-4">
+                      {isGuestMode 
+                        ? 'Portfolio vide. Les positions ajoutées en mode démo ne seront pas sauvegardées.'
+                        : 'Aucune cryptomonnaie dans votre portfolio'
+                      }
+                    </p>
                     <AddCryptoDialog onAddCrypto={addToPortfolio} />
                   </div>
                 ) : (

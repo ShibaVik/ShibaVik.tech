@@ -57,17 +57,21 @@ const CryptoShowcase: React.FC<CryptoShowcaseProps> = ({ className }) => {
       try {
         const updatedCryptos = await Promise.all(
           cryptos.map(async (crypto) => {
-            const priceData = await getRealTimePrice(crypto.symbol.toLowerCase());
-            if (priceData) {
-              return {
-                ...crypto,
-                price: `$${priceData.price.toLocaleString('en-US', { 
-                  minimumFractionDigits: 2, 
-                  maximumFractionDigits: 2 
-                })}`,
-                change: `${priceData.priceChange24h > 0 ? '+' : ''}${priceData.priceChange24h.toFixed(2)}%`,
-                isPositive: priceData.priceChange24h >= 0
-              };
+            try {
+              const priceData = await getRealTimePrice(crypto.id);
+              if (priceData) {
+                return {
+                  ...crypto,
+                  price: `$${priceData.price.toLocaleString('en-US', { 
+                    minimumFractionDigits: 2, 
+                    maximumFractionDigits: 2 
+                  })}`,
+                  change: `${priceData.priceChange24h > 0 ? '+' : ''}${priceData.priceChange24h.toFixed(2)}%`,
+                  isPositive: priceData.priceChange24h >= 0
+                };
+              }
+            } catch (error) {
+              console.warn(`Failed to fetch price for ${crypto.symbol}:`, error);
             }
             return crypto;
           })
