@@ -33,8 +33,8 @@ const About: React.FC<AboutProps> = ({ className }) => {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-orangery-600 hover:text-orangery-700 transition-colors"
                 >
-                  <img src="/src/assets/twitter-logo.png" alt="Twitter" className="w-4 h-4" />
-                  <span className="text-sm">Twitter</span>
+                  <span className="text-lg font-bold">𝕏</span>
+                  <span className="text-sm">𝕏 (Twitter)</span>
                 </a>
                 <a
                   href="https://linkedin.com/in/sullyvan-milhau-92945a2b1"

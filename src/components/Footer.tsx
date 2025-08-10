@@ -41,10 +41,10 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 href="https://twitter.com/Nft_ShibaVik"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 rounded-lg bg-orangery-100 hover:bg-orangery-200 flex items-center justify-center transition-colors group"
-                title="Twitter"
+                className="w-12 h-12 rounded-lg bg-black hover:bg-gray-800 flex items-center justify-center transition-colors group"
+                title="𝕏 (Twitter)"
               >
-                <img src="/src/assets/twitter-logo.png" alt="Twitter" className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                <span className="text-white text-lg font-bold group-hover:scale-110 transition-transform">𝕏</span>
               </a>
               <a
                 href="https://linkedin.com/in/sullyvan-milhau-92945a2b1"
@@ -62,7 +62,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 className="w-12 h-12 rounded-lg bg-orangery-100 hover:bg-orangery-200 flex items-center justify-center transition-colors group"
                 title="OpenSea"
               >
-                <img src="/lovable-uploads/8647aafc-3e3b-438c-8961-f295eca354f4.png" alt="OpenSea" className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                <img src="/src/assets/opensea-logo.png" alt="OpenSea" className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </a>
               <a
                 href="https://github.com/ShibaVik"
@@ -71,7 +71,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 className="w-12 h-12 rounded-lg bg-orangery-100 hover:bg-orangery-200 flex items-center justify-center transition-colors group"
                 title="GitHub"
               >
-                <img src="/lovable-uploads/39e309bf-81a7-40d8-a251-fe591e0b6da7.png" alt="GitHub" className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                <img src="/src/assets/github-logo.png" alt="GitHub" className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </a>
             </div>
           </div>

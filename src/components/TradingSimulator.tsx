@@ -135,7 +135,7 @@ const TradingSimulator: React.FC<TradingSimulatorProps> = ({ className }) => {
   }, [searchQuery]);
 
   const socialLinks = [
-    { name: 'Twitter/X', logo: '/src/assets/twitter-logo.png', href: 'https://twitter.com/Nft_ShibaVik', color: 'bg-blue-100 hover:bg-blue-200 text-blue-600' },
+    { name: '𝕏', href: 'https://twitter.com/Nft_ShibaVik', color: 'bg-black hover:bg-gray-800 text-white' },
     { name: 'GitHub', logo: '/src/assets/github-logo.png', href: 'https://github.com/ShibaVik', color: 'bg-gray-100 hover:bg-gray-200 text-gray-700' },
     { name: 'OpenSea', logo: '/src/assets/opensea-logo.png', href: 'https://opensea.io/ShibaVik', color: 'bg-cyan-100 hover:bg-cyan-200 text-cyan-600' },
     { name: 'LinkedIn', logo: '/src/assets/linkedin-logo.png', href: 'https://linkedin.com/in/sullyvan-milhau-92945a2b1', color: 'bg-blue-100 hover:bg-blue-200 text-blue-700' },
@@ -173,7 +173,11 @@ const TradingSimulator: React.FC<TradingSimulatorProps> = ({ className }) => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <img src={link.logo} alt={link.name} className="w-5 h-5" />
+                      {link.name === '𝕏' ? (
+                        <span className="text-lg font-bold">𝕏</span>
+                      ) : (
+                        <img src={link.logo} alt={link.name} className="w-5 h-5" />
+                      )}
                     </a>
                   ))}
                 </div>
