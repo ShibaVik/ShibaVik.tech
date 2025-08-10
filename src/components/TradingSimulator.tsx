@@ -135,9 +135,10 @@ const TradingSimulator: React.FC<TradingSimulatorProps> = ({ className }) => {
   }, [searchQuery]);
 
   const socialLinks = [
-    { name: 'Twitter', logo: '/src/assets/twitter-logo.png', href: 'https://twitter.com/ShibaVik', color: 'bg-blue-100 hover:bg-blue-200 text-blue-600' },
+    { name: 'Twitter/X', logo: '/src/assets/twitter-logo.png', href: 'https://twitter.com/Nft_ShibaVik', color: 'bg-blue-100 hover:bg-blue-200 text-blue-600' },
     { name: 'GitHub', logo: '/src/assets/github-logo.png', href: 'https://github.com/ShibaVik', color: 'bg-gray-100 hover:bg-gray-200 text-gray-700' },
     { name: 'OpenSea', logo: '/src/assets/opensea-logo.png', href: 'https://opensea.io/ShibaVik', color: 'bg-cyan-100 hover:bg-cyan-200 text-cyan-600' },
+    { name: 'LinkedIn', logo: '/src/assets/linkedin-logo.png', href: 'https://linkedin.com/in/sullyvan-milhau-92945a2b1', color: 'bg-blue-100 hover:bg-blue-200 text-blue-700' },
   ];
 
   return (

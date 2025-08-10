@@ -37,7 +37,7 @@ const About: React.FC<AboutProps> = ({ className }) => {
                   <span className="text-sm">Twitter</span>
                 </a>
                 <a
-                  href="https://www.linkedin.com/in/sullyvan-milhau"
+                  href="https://linkedin.com/in/sullyvan-milhau-92945a2b1"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-orangery-600 hover:text-orangery-700 transition-colors"

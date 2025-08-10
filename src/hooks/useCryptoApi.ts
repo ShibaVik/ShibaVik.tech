@@ -41,25 +41,47 @@ export const useCryptoApi = () => {
   // Get real-time price from CoinGecko
   const getCoinGeckoPrice = useCallback(async (tokenId: string): Promise<CryptoPrice | null> => {
     try {
-      const response = await fetch(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${tokenId}&vs_currencies=usd&include_24hr_change=true&include_market_cap=true&include_24hr_vol=true`,
-        {
-          headers: apiConfig.coingeckoApiKey ? {
-            'X-CG-Demo-API-Key': apiConfig.coingeckoApiKey
-          } : {}
-        }
-      );
+      const url = `https://api.coingecko.com/api/v3/simple/price?ids=${tokenId}&vs_currencies=usd&include_24hr_change=true&include_market_cap=true&include_24hr_vol=true`;
+      const headers = apiConfig.coingeckoApiKey ? {
+        'X-CG-Demo-API-Key': apiConfig.coingeckoApiKey
+      } : {};
+
+      const response = await fetch(url, { 
+        headers,
+        method: 'GET',
+        mode: 'cors'
+      });
       
-      if (!response.ok) throw new Error('Failed to fetch from CoinGecko');
+      if (response.status === 429) {
+        throw new Error('Rate limit exceeded. Please wait or add a CoinGecko API key in settings.');
+      }
+      
+      if (!response.ok) {
+        throw new Error(`CoinGecko API error: ${response.status} ${response.statusText}`);
+      }
       
       const data = await response.json();
-      const tokenData = data[tokenId];
+      console.log('CoinGecko response for', tokenId, ':', data);
       
-      if (!tokenData) return null;
+      const tokenData = data[tokenId];
+      if (!tokenData || !tokenData.usd) {
+        console.log('No price data found for token:', tokenId);
+        return null;
+      }
+      
+      // Get token name from CoinGecko coins list
+      const coinsList = {
+        'bitcoin': 'Bitcoin',
+        'ethereum': 'Ethereum',
+        'solana': 'Solana',
+        'cardano': 'Cardano',
+        'dogecoin': 'Dogecoin',
+        'matic-network': 'Polygon'
+      };
       
       return {
-        symbol: tokenId,
-        name: tokenId,
+        symbol: tokenId === 'matic-network' ? 'MATIC' : tokenId.toUpperCase().slice(0, 4),
+        name: coinsList[tokenId as keyof typeof coinsList] || tokenId.charAt(0).toUpperCase() + tokenId.slice(1),
         price: tokenData.usd,
         priceChange24h: tokenData.usd_24h_change || 0,
         marketCap: tokenData.usd_market_cap || 0,
@@ -67,7 +89,7 @@ export const useCryptoApi = () => {
       };
     } catch (err) {
       console.error('CoinGecko API error:', err);
-      return null;
+      throw err;
     }
   }, [apiConfig.coingeckoApiKey]);
 

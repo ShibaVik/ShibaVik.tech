@@ -47,7 +47,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 <img src="/src/assets/twitter-logo.png" alt="Twitter" className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </a>
               <a
-                href="https://www.linkedin.com/in/sullyvan-milhau"
+                href="https://linkedin.com/in/sullyvan-milhau-92945a2b1"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 rounded-lg bg-orangery-100 hover:bg-orangery-200 flex items-center justify-center transition-colors group"
