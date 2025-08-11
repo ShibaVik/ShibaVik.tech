@@ -59,7 +59,7 @@ const Portfolio = () => {
   if (authLoading || loading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Header />
+        <Header forceScrolledStyle={true} />
         <div className="container mx-auto px-4 pt-24 flex justify-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orangery-600"></div>
         </div>
@@ -72,7 +72,7 @@ const Portfolio = () => {
 
   return (
     <main className="relative min-h-screen bg-gray-50">
-      <Header />
+      <Header forceScrolledStyle={true} />
       <div className="pt-24 pb-12">
         <div className="container mx-auto px-4 md:px-6">
           <FadeIn>

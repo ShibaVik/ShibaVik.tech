@@ -77,7 +77,7 @@ const History = () => {
   if (!user) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Header />
+        <Header forceScrolledStyle={true} />
         <div className="container mx-auto px-4 pt-24 text-center">
           <Card className="max-w-md mx-auto">
             <CardContent className="pt-6">
@@ -100,7 +100,7 @@ const History = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
+      <Header forceScrolledStyle={true} />
       <div className="container mx-auto px-4 pt-24 pb-12">
         <div className="max-w-4xl mx-auto">
           <div className="mb-8">
