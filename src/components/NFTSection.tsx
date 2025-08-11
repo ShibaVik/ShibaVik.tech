@@ -98,19 +98,12 @@ const NFTSection: React.FC<NFTSectionProps> = ({ className }) => {
                 Chaque NFT est unique avec des traits rares et des utilités spéciales.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex justify-center">
                 <InteractiveButton
                   onClick={() => window.open('https://opensea.io/collection/shibavik-summer-era/overview', '_blank')}
                   className="bg-primary hover:bg-primary/90"
                 >
                   Voir Summer Era
-                </InteractiveButton>
-                <InteractiveButton
-                  onClick={() => window.open('https://discord.gg/shibavik', '_blank')}
-                  variant="outline"
-                  className="border-primary/30 hover:border-primary"
-                >
-                  Rejoindre Discord
                 </InteractiveButton>
               </div>
             </div>

@@ -41,37 +41,37 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 href="https://twitter.com/Nft_ShibaVik"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 rounded-lg bg-black hover:bg-gray-800 flex items-center justify-center transition-colors group"
+                className="w-12 h-12 rounded-lg bg-white hover:bg-gray-100 flex items-center justify-center transition-colors group shadow-sm"
                 title="𝕏 (Twitter)"
               >
-                <span className="text-white text-lg font-bold group-hover:scale-110 transition-transform">𝕏</span>
+                <img src="/src/assets/x-logo.png" alt="𝕏" className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </a>
               <a
                 href="https://linkedin.com/in/sullyvan-milhau-92945a2b1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 rounded-lg bg-orangery-100 hover:bg-orangery-200 flex items-center justify-center transition-colors group"
+                className="w-12 h-12 rounded-lg bg-white hover:bg-gray-100 flex items-center justify-center transition-colors group shadow-sm"
                 title="LinkedIn"
               >
-                <img src="/src/assets/linkedin-logo.png" alt="LinkedIn" className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                <img src="/src/assets/linkedin-logo-minimal.png" alt="LinkedIn" className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </a>
               <a
                 href="https://opensea.io/ShibaVik"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 rounded-lg bg-orangery-100 hover:bg-orangery-200 flex items-center justify-center transition-colors group"
+                className="w-12 h-12 rounded-lg bg-white hover:bg-gray-100 flex items-center justify-center transition-colors group shadow-sm"
                 title="OpenSea"
               >
-                <img src="/src/assets/opensea-logo.png" alt="OpenSea" className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                <img src="/src/assets/opensea-logo-minimal.png" alt="OpenSea" className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </a>
               <a
                 href="https://github.com/ShibaVik"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 rounded-lg bg-orangery-100 hover:bg-orangery-200 flex items-center justify-center transition-colors group"
+                className="w-12 h-12 rounded-lg bg-white hover:bg-gray-100 flex items-center justify-center transition-colors group shadow-sm"
                 title="GitHub"
               >
-                <img src="/src/assets/github-logo.png" alt="GitHub" className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                <img src="/src/assets/github-logo-minimal.png" alt="GitHub" className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </a>
             </div>
           </div>

@@ -120,15 +120,16 @@ const Header: React.FC<HeaderProps> = ({ className, forceScrolledStyle = false }
           >
             Home
           </NavLink>
-          <button 
-            className="text-left hover:text-orangery-500 transition-colors"
-            onClick={() => {
-              scrollToSection('trading-simulator');
-              setIsMobileMenuOpen(false);
-            }}
+          <NavLink
+            to="/simulator"
+            className={({ isActive }) => cn(
+              "text-left hover:text-orangery-500 transition-colors",
+              isActive && "text-orangery-500 font-semibold"
+            )}
+            onClick={() => setIsMobileMenuOpen(false)}
           >
             Simulator
-          </button>
+          </NavLink>
           <NavLink
             to="/portfolio"
             className={({ isActive }) => cn(
@@ -204,17 +205,17 @@ const NavLinks: React.FC<NavLinksProps> = ({ scrollToSection, isScrolled }) => (
     >
       Home
     </button>
-    <button 
+    <NavLink
+      to="/simulator" 
       className={cn(
         "text-sm font-medium transition-all duration-300",
         isScrolled 
           ? "text-foreground hover:text-orangery-500" 
           : "text-white hover:text-orangery-300"
       )}
-      onClick={() => scrollToSection('trading-simulator')}
     >
       Simulator
-    </button>
+    </NavLink>
     <NavLink
       to="/portfolio" 
       className={cn(
