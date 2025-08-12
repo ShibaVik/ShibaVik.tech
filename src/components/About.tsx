@@ -42,7 +42,7 @@ const About: React.FC<AboutProps> = ({ className }) => {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-orangery-600 hover:text-orangery-700 transition-colors"
                 >
-                  <img src="/lovable-uploads/671729b1-e9fc-4d4d-a9d3-e57a38fcf834.png" alt="LinkedIn" className="w-4 h-4" />
+                  <img src="/lovable-uploads/a3d05521-8a36-44d1-a5ec-8b4fa38f160b.png" alt="LinkedIn" className="w-4 h-4" />
                   <span className="text-sm">LinkedIn</span>
                 </a>
                 <a

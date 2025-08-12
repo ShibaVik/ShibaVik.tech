@@ -53,7 +53,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 className="w-12 h-12 rounded-lg bg-white hover:bg-gray-100 flex items-center justify-center transition-colors group shadow-sm"
                 title="LinkedIn"
               >
-                <img src="/lovable-uploads/671729b1-e9fc-4d4d-a9d3-e57a38fcf834.png" alt="LinkedIn" className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                <img src="/lovable-uploads/a3d05521-8a36-44d1-a5ec-8b4fa38f160b.png" alt="LinkedIn" className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </a>
               <a
                 href="https://opensea.io/ShibaVik"
