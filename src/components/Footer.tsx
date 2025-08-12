@@ -53,7 +53,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 className="w-12 h-12 rounded-lg bg-white hover:bg-gray-100 flex items-center justify-center transition-colors group shadow-sm"
                 title="LinkedIn"
               >
-                <img src="/src/assets/linkedin-logo-minimal.png" alt="LinkedIn" className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                <img src="/lovable-uploads/671729b1-e9fc-4d4d-a9d3-e57a38fcf834.png" alt="LinkedIn" className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </a>
               <a
                 href="https://opensea.io/ShibaVik"
@@ -62,7 +62,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 className="w-12 h-12 rounded-lg bg-white hover:bg-gray-100 flex items-center justify-center transition-colors group shadow-sm"
                 title="OpenSea"
               >
-                <img src="/src/assets/opensea-logo-minimal.png" alt="OpenSea" className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                <img src="/lovable-uploads/aff37192-08d1-43f3-8bad-47bcd838cdea.png" alt="OpenSea" className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </a>
               <a
                 href="https://github.com/ShibaVik"
@@ -71,7 +71,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 className="w-12 h-12 rounded-lg bg-white hover:bg-gray-100 flex items-center justify-center transition-colors group shadow-sm"
                 title="GitHub"
               >
-                <img src="/src/assets/github-logo-minimal.png" alt="GitHub" className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                <img src="/lovable-uploads/cf7c815d-01c5-426a-af9f-26812957b1fc.png" alt="GitHub" className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </a>
             </div>
           </div>

@@ -42,7 +42,7 @@ const About: React.FC<AboutProps> = ({ className }) => {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-orangery-600 hover:text-orangery-700 transition-colors"
                 >
-                  <img src="/src/assets/linkedin-logo-minimal.png" alt="LinkedIn" className="w-4 h-4" />
+                  <img src="/lovable-uploads/671729b1-e9fc-4d4d-a9d3-e57a38fcf834.png" alt="LinkedIn" className="w-4 h-4" />
                   <span className="text-sm">LinkedIn</span>
                 </a>
                 <a
@@ -51,7 +51,7 @@ const About: React.FC<AboutProps> = ({ className }) => {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-orangery-600 hover:text-orangery-700 transition-colors"
                 >
-                  <img src="/src/assets/opensea-logo-minimal.png" alt="OpenSea" className="w-4 h-4" />
+                  <img src="/lovable-uploads/aff37192-08d1-43f3-8bad-47bcd838cdea.png" alt="OpenSea" className="w-4 h-4" />
                   <span className="text-sm">OpenSea</span>
                 </a>
                 <a
@@ -60,7 +60,7 @@ const About: React.FC<AboutProps> = ({ className }) => {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-orangery-600 hover:text-orangery-700 transition-colors"
                 >
-                  <img src="/src/assets/github-logo-minimal.png" alt="GitHub" className="w-4 h-4" />
+                  <img src="/lovable-uploads/cf7c815d-01c5-426a-af9f-26812957b1fc.png" alt="GitHub" className="w-4 h-4" />
                   <span className="text-sm">GitHub</span>
                 </a>
               </div>
