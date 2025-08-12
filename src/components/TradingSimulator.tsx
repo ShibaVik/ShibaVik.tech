@@ -136,9 +136,9 @@ const TradingSimulator: React.FC<TradingSimulatorProps> = ({ className }) => {
 
   const socialLinks = [
     { name: '𝕏', href: 'https://twitter.com/Nft_ShibaVik', color: 'bg-black hover:bg-gray-800 text-white' },
-    { name: 'GitHub', logo: '/src/assets/github-logo.png', href: 'https://github.com/ShibaVik', color: 'bg-gray-100 hover:bg-gray-200 text-gray-700' },
-    { name: 'OpenSea', logo: '/src/assets/opensea-logo.png', href: 'https://opensea.io/ShibaVik', color: 'bg-cyan-100 hover:bg-cyan-200 text-cyan-600' },
-    { name: 'LinkedIn', logo: '/src/assets/linkedin-logo.png', href: 'https://linkedin.com/in/sullyvan-milhau-92945a2b1', color: 'bg-blue-100 hover:bg-blue-200 text-blue-700' },
+    { name: 'OpenSea', logo: '/lovable-uploads/aff37192-08d1-43f3-8bad-47bcd838cdea.png', href: 'https://opensea.io/ShibaVik', color: 'bg-cyan-100 hover:bg-cyan-200 text-cyan-600' },
+    { name: 'LinkedIn', logo: '/lovable-uploads/a3d05521-8a36-44d1-a5ec-8b4fa38f160b.png', href: 'https://linkedin.com/in/sullyvan-milhau-92945a2b1', color: 'bg-blue-100 hover:bg-blue-200 text-blue-700' },
+    { name: 'GitHub', logo: '/lovable-uploads/cf7c815d-01c5-426a-af9f-26812957b1fc.png', href: 'https://github.com/ShibaVik', color: 'bg-gray-100 hover:bg-gray-200 text-gray-700' },
   ];
 
   return (
